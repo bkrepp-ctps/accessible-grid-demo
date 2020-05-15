@@ -3,14 +3,47 @@
     <head>
         <meta charset="utf-8">
         <title>Demo of Accessible Grid Plugin</title>
+        <!-- The following line was added by BK on 05/15/2020: -->
+        <link rel="stylesheet" href="mydemo.css"/>
+        
         <script src="libs/jquery-3.4.1.js"></script> 
-        <script src="libs/jquery.accessibleGrid-0.01.js."></script>
+        <script src="libs/jquery.accessibleGrid-0.09.js."></script>
     </head>
 <body>
     <div id="container"></div>
     <script> 
-        $(document).ready(function() {
-            alert("Hi!");
+        $(document).ready(function() {           
+            // As you can tell, the interface for the accessible grid plug-in could use a bit more TLC.
+            // At the very least, there is no need for a 'colDesc' parameter in addition to the 'options' parameter.
+            //
+            var myColDesc = [ { dataIndex: "name",      header: "Station Name", cls : "myCoolColumnClass" },
+                              { dataIndex: "occupancy", header: "Very-very-very-long-winded-column-header" },
+                              { dataIndex: "capacity",  header: "Wowie, zowie", style: "color:red",
+                                renderer: function(val, rec, rowIx, colIx, store) { return val.toLocaleString(); } }
+                            ];
+                              
+            var myOptions = { divId:   "container",
+                              tableId: "table_1",
+                              caption: "This is the caption for my table.",
+                              summary: "This table is really cool.",
+                              colDesc: myColDesc
+                            };
+                            
+            var data = [ { name: "Alewife",  capacity: 750,   occupancy: 650 },
+                         { name: "Quincy",   capacity: 1000,  occupancy: 950 },
+                         { name: "Folderol", capacity: 200,   occupancy: 199 },
+                         { name: "Foobar",   capacity: 10000, occupancy: 42 }
+                        ];
+            
+            // NOTE:
+            //  |   We need some kind of JQ selector here, but what you use is arbitrary.
+            //  |   By convention, I've used the ID of the div into which the table is to be written.
+            //  |
+            // \ /            
+            //  .
+            $('#container').accessibleGrid(myColDesc, myOptions, data);
+            
+            console.log("Generation of accessible table has completed.");
         });
     </script>
 </body>

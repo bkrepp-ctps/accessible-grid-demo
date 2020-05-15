@@ -1,0 +1,9 @@
+/* CSS style sheet for accessible grid demo */
+
+/* Center-align the text in columns with the class 'myCoolColumnClass'
+   This is currently the FIRST column in the table. */
+   
+.myCoolColumnClass {
+    width: 500px;
+    text-align: center;
+}
